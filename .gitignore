@@ -1,11 +1,11 @@
 ## BUPTGraduatethesis
-example/
-xeCJK-fonts.def
-buptgraduatethesis.bst
-buptgraduatethesis.cfg
-buptgraduatethesis.cls
-buptgraduatethesis.hd
-buptgraduatethesis.pdf
+# example/
+# xeCJK-fonts.def
+# buptgraduatethesis.bst
+# buptgraduatethesis.cfg
+# buptgraduatethesis.cls
+# buptgraduatethesis.hd
+# buptgraduatethesis.pdf
 
 # macOS
 .DS_Store
