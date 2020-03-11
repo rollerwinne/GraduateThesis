@@ -1,22 +1,9 @@
 %%
-%% This is file `example/bare_thesis.tex',
-%% generated with the docstrip utility.
-%%
-%% The original source files were:
-%%
-%% install/buptgraduatethesis.dtx  (with options: `bare-thesis')
-%% 
-%% This file is a part of the example of BUPTGraduateThesis.
+%% @Author 张聪 zhangcongbupt@bupt.edu.cn
+%% Based on <https://github.com/rioxwang/BUPTGraduateThesis.git>
 %% 
 
-\documentclass[%
-  degree=master,%
-  classlevel=open,%
-  mathfont=mathptmx,%
-  dedication=false,%
-  chapbib=true,%
-  finish=print,%
-  driver=xetex]{buptgraduatethesis}
+\documentclass[degree=master,classlevel=open,mathfont=mathptmx,dedication=false,chapbib=true,finish=print,driver=xetex]{buptgraduatethesis}
 
 %% 自定义导言区
 %% 在这里添加你需要的宏包、自定义命令、环境等
@@ -26,12 +13,13 @@
 \def\BUPTThesis{\textsc{BUPT}\-\textsc{Thesis}}
 
 %% 在这里添加图片文件搜索目录
-\graphicspath{{../}}
+\graphicspath{{images}}
 %% 自定义导言区结束
 
-%% 加载缩略语定义
+%% 设置封面等学生信息
 \input{metadata}
 
+%% 加载缩略语定义
 \loadglsentries{acronyms}
 
 %% 攻读学位期间发表论文
@@ -50,12 +38,15 @@
 %% 主体部分
 \mainmatter
 %% 用\include{}命令引用各章.tex文件
-\include{ch_intro}
-\include{ch_concln}
+\include{chapter1_introduction}
+\include{chapter2_Koopman}
+\include{chapter3_chaos}
+\include{chapter4_application}
+\include{chapter5_conclusion}
 
 \ifx\usechapbib\undefined
 \bibliographystyle{buptgraduatethesis}
-\bibliography{bare_thesis}
+\bibliography{references}
 \fi
 
 %% 附录部分

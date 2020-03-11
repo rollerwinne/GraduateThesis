@@ -20,35 +20,35 @@
 
 %% 如果学位论文作者在发表论文列表中的作者排名有超过 3 的, 其姓名将不会出现在论文列表中
 %% 设置下面的数值可以改变发表论文列表中作者姓名显示的最大数目
-@BUPTGraduateThesisBSTCTL{BSTcontrol,
-  CTLmaxnum_authors = "3"
+%% BUPTGraduateThesisBSTCTL{BSTcontrol,
+%%  CTLmaxnum_authors = "3"
+%% }
+
+%% ARTICLE{paper1,
+%%  author = "{\textbf{Zhang~San}} and Newton, Issac and Hawking, Stephen William and Galilei, Galileo",
+%%  title = "An extended brief history of time",
+%%  booktitle = "Journal of Galaxy",
+%%  year = "2079",
+%%  volume = "1234",
+%%  number = "4",
+%%  pages = "567--890",
+%%  note = "（SCI 收录，检索号：786FZ）"
+%% }
+
+@INPROCEEDINGS{CSSC2019,
+  author = "{\textbf{张聪}}",
+  title = "Koopman Operator Spectrum and Dynamic Model of Chaotic System",
+  booktitle = "第三届中国系统科学大会程序册",
+  year = "2019",
+  pages = "65--65",
+  address = "中国, 湖南",
+  note = "（会议摘要）"
 }
 
-@ARTICLE{paper1,
-  author = "{\textbf{Zhang~San}} and Newton, Issac and Hawking, Stephen William and Galilei, Galileo",
-  title = "An extended brief history of time",
-  booktitle = "Journal of Galaxy",
-  year = "2079",
-  volume = "1234",
-  number = "4",
-  pages = "567--890",
-  note = "（SCI 收录，检索号：786FZ）"
-}
-
-@INPROCEEDINGS{paper2,
-  author = "McClane, John and McClane, Lucy and Gennero, Holly and {\textbf{Zhang~San}}",
-  title = "Transcript in Die hard",
-  booktitle = "Proc. HDDD 100th Super Technology Conference (STC 2046)",
-  year = "2046",
-  pages = "123--456",
-  address = "Eta Cygni, Cygnus",
-  note = "（EI 源刊）"
-}
-
-@PATENT{patent1,
-  author = "{\textbf{张三}} and 李四",
-  title = "一种进行时空旅行的装置",
-  address = "中国",
-  series = "1234567",
-  date = "2046-01-09"
-}
+%% PATENT{patent1,
+%%  author = "{\textbf{张三}} and 李四",
+%%  title = "一种进行时空旅行的装置",
+%%  address = "中国",
+%%  series = "1234567",
+%%  date = "2046-01-09"
+%% }

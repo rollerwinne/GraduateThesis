@@ -19,15 +19,23 @@
 # Project name
 PROJECT="buptgraduatethesis"
 # File name of your top-level tex file.
-TARGET="bare_thesis"
+TARGET="main"
 # File name list of tex files for mainmatters.
-MAINMATTERS=("ch_intro" "ch_concln")
+MAINMATTERS=(
+    "chapter1_introduction"
+    "chapter2_Koopman"
+    "chapter3_chaos"
+    "chapter4_application"
+    "chapter5_conclusion"
+    )
 # Driver type to build PDF.
 # 'xetex' for xetex engine;
 DRIVER="xetex"
 # Bib type to construct bibliography.
 # 'chapbib' for bib per chapter; 'allbib' for bib in thesis end.
 BIBTYPE="chapbib"
+# Word count filename
+WORDCOUNT="wordcount"
 # --------------------------------------------------------------------------
 # Function: Clearance
 # TMP File Clearance
@@ -38,6 +46,7 @@ function clean()
     rm -f *.dvi *.ps > /dev/null
     echo Clearing TMP files in thesis generation...
     rm -f *.bbl *.blg *.aux *.log *.acn *.glo *.ist *.acr *.alg *.out *.toc *.thm *.ps *.dvi > /dev/null
+    rm -f *.lof *.lot *.fls *.synctex.gz *.fdb_latexmk ${WORDCOUNT}.html > /dev/null
     echo ===========================================
     echo = Mission Done!
     echo = ALL TMP files are cleared!
@@ -49,11 +58,17 @@ function clean()
 # Word Count
 function wordcount()
 {
+    # Prevent "${TARGET}.bbl" not exsit error
+    if [ ! -f "${TARGET}.bbl" ]; then
+        touch ${TARGET}.bbl
+    fi
     echo Counting word...
-    texcount -ch -inc -incbib -html -v -sum bare_thesis.tex > wordcount.html
+    texcount -ch -inc -incbib -html -v -sum ${TARGET}.tex > ${WORDCOUNT}.html
+    COUNT=$(cat ${WORDCOUNT}.html | grep "<li>Sum count:.*</li>" | tail -1 | sed 's/[^0-9]//g')
     echo ===========================================
-    echo = Counting Mission Done!
-    echo = Word-counting Results are recorded in 'wordcount.html'!
+    # echo = Counting Mission Done!
+    echo = Total words: ${COUNT}.
+    echo = Word-counting Results are recorded in ${WORDCOUNT}.html!
     echo ===========================================
     exit
 }
@@ -72,7 +87,7 @@ function thesis()
     echo =
     echo ===========================================
     echo Double check above configurations! Press anykey to continue, CTRL+C to stop!
-    read -n1
+    # read -n1
     # Check the integrity of the installation.
     echo Checking Existence of Essential Files...
     if [ -f "${PROJECT}.cls" -a -f "${PROJECT}.cfg" -a -f "${PROJECT}.bst" ]; then
@@ -155,6 +170,13 @@ if [ "$#" = 1 ]; then
         clean
     elif [ "$1" = "wordcount" ]; then
         wordcount
+    elif [ "$1" = "cleanall" ]; then
+        rm -f main.pdf > /dev/null
+        clean
+    elif [ "$1" = "open" ]; then
+        open ${TARGET}.pdf
+    elif [ "$1" = "openhtml" ]; then
+        open ${WORDCOUNT}.html
     else
         echo ===========================================
         echo = Undefined Parameter!
@@ -165,10 +187,10 @@ elif [ "$#" = 0 ]; then
 else
     echo ===========================================
     echo = Input Parameter Error!
-    echo = You should input at most 1 parameter: 
-    echo =     install
-    echo =     thesis
-    echo =     clean
+    echo = You should input at most 1 parameter.
+    # echo =     install
+    # echo =     thesis
+    # echo =     clean
     echo = or leave it blank for default!
     echo ===========================================
 fi
