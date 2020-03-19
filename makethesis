@@ -14,6 +14,11 @@
 #       1. Change the dos-style line break into unix-style line break: <CR><LF> -> <LF>.
 #       2. 'wordcount' function is defined.
 # v1.4: Modify output redirecting.
+
+# Change Log by Zhang Cong <zhangcongbupt@bupt.edu.cn>
+# Add 'cleanall' 'open' 'openhtml' 'backup' parameter.
+# Modify 'clean' 'wordcount' functions.
+
 # --------------------------------------------------------------------------
 # User Configuration
 # Project name
@@ -22,11 +27,13 @@ PROJECT="buptgraduatethesis"
 TARGET="main"
 # File name list of tex files for mainmatters.
 MAINMATTERS=(
-    "chapter1_introduction"
-    "chapter2_Koopman"
-    "chapter3_chaos"
-    "chapter4_application"
-    "chapter5_conclusion"
+    "chapter1"
+    "chapter2"
+    "chapter3"
+    "chapter4"
+    "chapter5"
+    "chapter6"
+    "chapter7"
     )
 # Driver type to build PDF.
 # 'xetex' for xetex engine;
@@ -34,6 +41,7 @@ DRIVER="xetex"
 # Bib type to construct bibliography.
 # 'chapbib' for bib per chapter; 'allbib' for bib in thesis end.
 BIBTYPE="chapbib"
+#BIBTYPE="allbib"
 # Word count filename
 WORDCOUNT="wordcount"
 # --------------------------------------------------------------------------
@@ -130,7 +138,7 @@ function thesis()
     echo = Mission Done!
     echo = Thesis PDF is successfully generated!
     echo ===========================================
-    exit
+    # exit
 }
 # --------------------------------------------------------------------------
 # Function: Installation
@@ -158,6 +166,21 @@ function install()
     exit
 }
 
+function backup()
+{
+    if [ ! -f "${TARGET}.pdf" ]; then
+        echo "${TARGET}.pdf not exsit."
+        exit
+    fi
+    if [ ! -d "backup" ];then
+        mkdir backup
+    fi
+    TIME=$(date "+%Y%m%d%H%M%S")
+    cp ${TARGET}.pdf backup/${TARGET}_${TIME}.pdf
+    echo "backup/${TARGET}_${TIME}.pdf is created."
+    exit
+}
+
 # --------------------------------------------------------------------------
 # Main Function Selection
 # Default Selection: thesis
@@ -177,6 +200,8 @@ if [ "$#" = 1 ]; then
         open ${TARGET}.pdf
     elif [ "$1" = "openhtml" ]; then
         open ${WORDCOUNT}.html
+    elif [ "$1" = "backup" ]; then
+        backup
     else
         echo ===========================================
         echo = Undefined Parameter!
