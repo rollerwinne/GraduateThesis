@@ -32,8 +32,8 @@ MAINMATTERS=(
     "chapter3"
     "chapter4"
     "chapter5"
-    "chapter6"
-    "chapter7"
+    # "chapter6"
+    # "chapter7"
     )
 # Driver type to build PDF.
 # 'xetex' for xetex engine;
