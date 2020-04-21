@@ -234,7 +234,7 @@ Koopman算符的本征值为我们提供了一个划分相空间的思路。对�
 
 为了得到Koopman算符的本征函数,我们需要构造演化前与演化后的数据，通常采用构造数据矩阵的方式，设某$p$时刻的数据为$\{x_{p_1},x_{p_2},\cdots,x_{p_n}\}$，$x_i\in \mathbb{R}^n$，当时刻为$p+1$时，数据演化为$\{x_{p_1+1},x_{p_2+1},\cdots,x_{p_n+1}\}$，$x_i\in \mathbb{R}^n$，在选取的基函数${g_i(x)}$,$i=1,2,\cdots,m$下，利用已知数据点将m个基函数及演化后的函数表示为在$\{x_{p_1},x_{p_2},\cdots,x_{p_n}\}$(称之为“演化格点”)下的列向量，从而构成两个$n\times m$的数据矩阵：
 \begin{equation}
-    \begin{aligned}
+    %\begin{aligned}
         K=(g_1(x_p),g_2(x_p),\cdots,g_m(x_p))=
         \begin{pmatrix}
         g_1(x_{p_1}) & g_2(x_{p_1}) & \cdots & g_m(x_{p_1}) \\
@@ -242,7 +242,7 @@ Koopman算符的本征值为我们提供了一个划分相空间的思路。对�
         \vdots       & \vdots       & \ddots & \vdots \\
         g_1(x_{p_n}) & g_2(x_{p_n}) & \cdots & g_m(x_{p_n})
         \end{pmatrix}
-    \end{aligned}
+    %\end{aligned}
 \end{equation}
 \begin{equation}
     \begin{aligned}
@@ -257,18 +257,11 @@ Koopman算符的本征值为我们提供了一个划分相空间的思路。对�
     \end{aligned}
 \end{equation}
 
-其中$K$我们称为演化前矩阵，$L$称为演化后矩阵，$K$、$L$的每一列为相空间在一组点在某个基函数上的取值，当相空间的点数足够多时，可以视矩阵的每一列为一个基函数的离散数据表示，$K$、$L$则可以看作是多个基函数的组合，分别表示演化前的基函数和演化后的基函数，而演化后的基函数又可以看作一个新的函数，视为Koopman算符作用在基函数上得到。于是$K$、$L$之间的关系可由Koopman算符表示
+其中$K$我们称为演化前数据矩阵，$L$称为演化后数据矩阵，$K$、$L$的每一列为相空间在一组点在某个基函数上的取值，当相空间的点数足够多时，可以视矩阵的每一列为一个基函数的离散数据表示，$K$、$L$则可以看作是多个基函数的组合，分别表示演化前的基函数和演化后的基函数，而演化后的基函数又可以看作一个新的函数，视为Koopman算符作用在基函数上得到。于是$K$、$L$之间的关系可由Koopman算符表示
 \begin{equation}
     UK=L
 \end{equation}
 Koopman算符的矩阵表示可由上式确定，因此我们可以通过上式求得Koopman算符的矩阵表示，进一步求得Koopman算符的本征值与本征函数。
-
-% 以Logistic映射为例，我们介绍Koopman分析的算法实现与具体步骤，不失一般性，我们取特定的参数$\gamma=4$，此时Logistic映射表现为混沌状态，此时Logistic映射的动力学方程可以描述为
-% \begin{equation}
-%     x_{n+1}=f(x_n)=4x_n(1-x_n),x_n\in [0,1],n=1,2,3,\cdots
-% \end{equation}
-
-% 该系统为一维系统，相空间范围为$[0,1]$，该系统存在两个不动点：$0$和$3/4$。我们首先根据该映射方程产生一组迭代数据，设我们产生的迭代数据的数量为$n+1$。则每个数据点可以表示为$x_i,i=1,2,\cdots,n+1$，为了得到“演化前数据”和“演化后数据”，我们将这组迭代产生的数据构造为$\{x_1,x_2,\cdots,x_n\}$与$\{x_2,x_3,\cdots,x_{n+1}\}$，并根据这两组数据构造出数据矩阵$K$与$L$。
 
 在构造矩阵$K$与$L$时，我们需要选定一组基函数${g_i(x)},i=1,2,\cdots,m$，基函数的选取对我们计算本征函数的结果至关重要，于是我们将从多个角度讨论基函数的选取对本征函数的影响。基函数的选取至关重要，为了能较好的表示出Koopman算符的本征函数，需要一组较完备的基函数作为算符作用的可观测量，可以选取Gauss基函数、Fourier基函数、Legendre基函数。然而上述基函数只有在数量趋于无穷时才具有完备性，我们希望基函数的数量足够多，然而为了相空间的数据点能够较好的表示每个基函数，基函数的数量又不宜超过演化格点的数量，此外考虑到计算量的因素，我们只能将基函数的数量设为某个有限值。此外由于相空间粒子分布的不均匀性，我们还可以取不同分布的基函数。总之，基函数的选取有多重形式，而基函数的选取会影响到本征函数的计算，因此基函数的选取至关重要。
 
@@ -277,29 +270,6 @@ Koopman算符的矩阵表示可由上式确定，因此我们可以通过上式�
 Koopman算符对相空间的划分可以通过混沌系统的已知特性来得到验证，如在Logistic映射中有两个不动点，而我们得到的本征函数图像恰好在不动点以及不动点的原像处得到了本征函数的极值点，说明了本征函数能够体现系统的动力学特征；此外，我们还可以通过验证动力学系统的周期点与周期轨道等特征，对比Koopman算符的本征函数，以此观察Koopman算符分析动力学系统的可行性。
 
 Koopman算符理论上能够区分相空间的不同区域的性质，对于具有噪声的数据和涨落的演化规律，Koopman算符同样可以通过控制函数空间的精细度来对相空间进行粗细粒度的划分，因此Koopman算符具有鲁棒性：即使我们的演化有噪声的影响，如探究噪声中常见的高斯白噪声，我们同样可以对相空间进行粗粒度的划分。这在我们探究动力学系统中的演化规律中尤为重要。
-
-\subsection{动力学系统的符号动力学与“边界点”}
-
-符号动力学起源于动力系统的抽象拓扑理论的研究，并从20世纪60年代起逐渐在应用于一维映射的研究过程中得到发展和完善。符号动力学是研究符号动力系统的学科，这种系统的状态均可表示为有限个符号的无穷序列，而由任一状态点引出的运动轨道可由表示该状态的无穷序列通过简单的移位规则来确定。许多复杂动态系统均可经过变换等价于这类系统，从而可通过对比较简单的符号动力系统的分析来研究一般动力系统的行为。这种方法特别在混沌等复杂行为研究中占有重要地位。符号动力系统在其他领域也有广泛的应用。例如研究离散事件动态系统控制问题的代数方法就与符号动力学有密切的联系。
-
-符号动力学是实际动力系统的抽象和概括。对于一个相空间的离散动力学系统，我们可以依据不同的符号将相空间的不同区域命名，如使用符号“0”和符号“1”来讲相空间划分为两个区域。通过相空间的演化，又可以继续用有限个符号来更加细致的划分相空间。理论上相空间中的每个点都可以用一个无穷的符号序列与之对应。当传统的微分理论难以对动力学系统分析时，我们可以使用粗粒度的符号动力学来研究动力学系统的性质。即使一般的数值方法行不通，符号动力学仍可以对系统进行定性分析。
-
-Logistic映射就是一个可用符号动力学很好描述的典型，Logistic映射的动力学方程
-\begin{equation}
-    x_{n+1}=f(x_n)=\gamma x_n (1-x_n ),x_n∈[0,1],\ n=1,2,3,\cdots
-\end{equation}
-这里我们取$\gamma=4$,Logistic映射的迭代过程使它成为一个经典的混沌系统，符号动力系统也被视为混沌系统的原型，进而还可将符号动力系统的运动特征作为混沌的描述并成为混沌的一种严格的数学定义。Logistic映射的相图与符号动力学的划分可由下图表示：
-\begin{figure}
-	\centering
-	\includegraphics[scale=0.6]{logistic_symbolic.png}
-    \caption{Logistic映射的符号动力学划分}
-    \label{fig:logi_symb}
-\end{figure}
-Logistic映射的动力学过程可以看作是在一维相空间上的拉伸再折叠的过程，在折叠的临界点处$x=\frac{1}{2}$我们将其作为一个“临界点”，在临界点的两边我们分别标记区域为“0”和"1"。而在"0"区域的相空间$x\in [0,\frac{1}{2}]$中，其下一步演化的位置即存在演化为"0"的点，也存在演化为"1"的点。这样，我们可以根据该区域一次演化的结果进行更进一步的划分，则“0”区域的相空间又可以划分为"00"和"01"的相空间；同理，“1”区域的相空间可以划分为"11"和"10"的相空间。若将二次演化乃至多次演化作为划分符号动力学相空间的评判标准，则我们可以用符号动力学标记任意精度的相空间区域。特别的，在极限情况下，当我们演化的次数足够多时，我们可以对相空间的每个足够小的区域都划分出来，即相空间的每个点都对应一组无穷符号序列。
-
-在符号动力学中，一个最关键的问题就是如何寻找“边界点”,\text{边界点}是指在符号动力学中可以划分相空间不同区域的临界点，如在Logistic映射中，$x=\frac{1}{2}$就是一个“边界点”,根据其演化我们还可以找到一次演化的边界点$x=\frac{1}{2}\pm\frac{\sqrt{2}}{4}$，以此类推。所以，若能找到系统的“边界点”，便可以通过符号动力学对其相空间进行划分。
-
-Koopman算符的本征函数能够划分相空间区域的不同性质，而符号动力学的边界点也是反映了相空间区域的划分。当相空间的性质足够简单时，我们对其划分的标准就更单一。于是我们可以认为，此时Koopman算符的本征函数对相空间的划分恰好就是反映了符号动力学中的“边界点”对相空间的划分。我们将在后面的例子中继续探究这两者之间的对应关系。Koopman算符的本征函数恰能反映符号动力学的“边界点”，这也为我们寻找符号动力学的“边界点”提供了一个有效的方法。
 
 \subsection{Koopman算符的函数空间}
 % Rectangle Gauss Fourier Legendre
@@ -387,7 +357,276 @@ $K$、$L$的每一列为相空间在一个初始点上的演化，当演化次�
 
 不同于\ref{section:Koop_dyna}节中我们构造的函数空间，自然演化的函数空间仅由系统的动力学演化得到，其更能反映动力学系统的本征行为。我们可进一步求出在自然演化的基函数中Koopman算符的本征函数并以此来划分相空间。
 
+\section{Koopman算符中的动力学}
 
+\subsection{符号动力学与“边界点”}
+
+符号动力学起源于动力系统的抽象拓扑理论的研究，并从20世纪60年代起逐渐在应用于一维映射的研究过程中得到发展和完善。符号动力学是研究符号动力系统的学科，这种系统的状态均可表示为有限个符号的无穷序列，而由任一状态点引出的运动轨道可由表示该状态的无穷序列通过简单的移位规则来确定。许多复杂动态系统均可经过变换等价于这类系统，从而可通过对比较简单的符号动力系统的分析来研究一般动力系统的行为。这种方法特别在混沌等复杂行为研究中占有重要地位。符号动力系统在其他领域也有广泛的应用。例如研究离散事件动态系统控制问题的代数方法就与符号动力学有密切的联系。
+
+符号动力学是实际动力系统的抽象和概括。对于一个相空间的离散动力学系统，我们可以依据不同的符号将相空间的不同区域命名，如使用符号“0”和符号“1”来讲相空间划分为两个区域。通过相空间的演化，又可以继续用有限个符号来更加细致的划分相空间。理论上相空间中的每个点都可以用一个无穷的符号序列与之对应。当传统的微分理论难以对动力学系统分析时，我们可以使用粗粒度的符号动力学来研究动力学系统的性质。即使一般的数值方法行不通，符号动力学仍可以对系统进行定性分析。
+
+Logistic映射就是一个可用符号动力学很好描述的典型，Logistic映射的动力学方程
+\begin{equation}
+    x_{n+1}=f(x_n)=\gamma x_n (1-x_n ),x_n∈[0,1],\ n=1,2,3,\cdots
+\end{equation}
+这里我们取$\gamma=4$,Logistic映射的迭代过程使它成为一个经典的混沌系统，符号动力系统也被视为混沌系统的原型，进而还可将符号动力系统的运动特征作为混沌的描述并成为混沌的一种严格的数学定义。Logistic映射的相图与符号动力学的划分可由下图表示：
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.6]{logistic_symbolic.png}
+    \caption{Logistic映射的符号动力学划分}
+    \label{fig:logi_symb}
+\end{figure}
+Logistic映射的动力学过程可以看作是在一维相空间上的拉伸再折叠的过程，在折叠的临界点处$x=\frac{1}{2}$我们将其作为一个“临界点”，在临界点的两边我们分别标记区域为“0”和"1"。而在"0"区域的相空间$x\in [0,\frac{1}{2}]$中，其下一步演化的位置即存在演化为"0"的点，也存在演化为"1"的点。这样，我们可以根据该区域一次演化的结果进行更进一步的划分，则“0”区域的相空间又可以划分为"00"和"01"的相空间；同理，“1”区域的相空间可以划分为"11"和"10"的相空间。若将二次演化乃至多次演化作为划分符号动力学相空间的评判标准，则我们可以用符号动力学标记任意精度的相空间区域。特别的，在极限情况下，当我们演化的次数足够多时，我们可以对相空间的每个足够小的区域都划分出来，即相空间的每个点都对应一组无穷符号序列。
+
+在符号动力学中，一个最关键的问题就是如何寻找“边界点”,\text{边界点}是指在符号动力学中可以划分相空间不同区域的临界点，如在Logistic映射中，$x=\frac{1}{2}$就是一个“边界点”,根据其演化我们还可以找到一次演化的边界点$x=\frac{1}{2}\pm\frac{\sqrt{2}}{4}$，以此类推。所以，若能找到系统的“边界点”，便可以通过符号动力学对其相空间进行划分。
+
+Koopman算符的本征函数能够划分相空间区域的不同性质，而符号动力学的边界点也是反映了相空间区域的划分。当相空间的性质足够简单时，我们对其划分的标准就更单一。于是我们可以认为，此时Koopman算符的本征函数对相空间的划分恰好就是反映了符号动力学中的“边界点”对相空间的划分。我们将在后面的例子中继续探究这两者之间的对应关系。Koopman算符的本征函数恰能反映符号动力学的“边界点”，这也为我们寻找符号动力学的“边界点”提供了一个有效的方法。
+
+\subsection{动力学系统的线性化与流型}
+
+对于一个线性一维连续时间动力学系统
+\begin{equation}
+    \dot{x}=\lambda x
+\end{equation}
+其有一个不动点$x=0$。我们很容易求得其解为
+\begin{equation}
+    x(t)=Ce^{\lambda t}\   \text{(C为任意常数)}
+\end{equation}
+当$\lambda<0$时，系统在不动点$x=0$邻域的长期行为向不动点处逼近，此时的不动点为\textbf{稳定的}；当$\lambda<0$时，系统在不动点$x=0$邻域的长期行为逐渐远离不动点，此时的不动点为\textbf{不稳定的}。
+
+当动力学系统为高维时，不动点的稳定性变得复杂起来，我们首先考虑一个线性n维连续时间动力学系统
+\begin{equation}
+    \dot{\mathbf{x}}=A\mathbf{x}
+\end{equation}
+其中$x$为n维状态变量，该系统的不动点为$\mathbf{x}=\mathbf{0}$。一般的，当$A$具有$n$个线性无关的本征向量时，通过计算可以得到该线性常微分方程组的解为
+\begin{equation}
+    \mathbf{x}(t)=\sum_{i=1}^n C_ie^{\lambda_it}\mathbf{v}_i
+\end{equation}
+其中$C_i$为积分常量，$\lambda_i$与$\mathbf{v}_i$为矩阵$A$对应的本征向量与本征函数。
+
+在二维情况下，对于线性动力学系统
+\begin{equation}
+    \begin{aligned}
+        \dot{x}=ax+by\\
+        \dot{y}=cx+dy
+    \end{aligned}
+\end{equation}
+我们可以求出
+\begin{equation}
+    A=\begin{pmatrix}
+        a & b \\
+        c & d
+    \end{pmatrix}
+\end{equation}
+对应的本征值$\lambda_1$和$\lambda_2$及其对应的本征向量$\mathbf{v}_1$和$\mathbf{v}_2$，则该二维系统的通解为
+\begin{equation}
+    x(t)=C_1e^{\lambda_1t}\mathbf{v}_1+C_2e^{\lambda_2t}\mathbf{v}_2
+\end{equation}
+这个结果意味着在相空间中，不动点$\mathbf{x}=(0,0)$的邻域处有两个本征方向，两个本征方向的长期行为取决于$\lambda_1$与$\lambda_2$的值：当$\lambda<0$时，该本征方向的长期行为逐渐靠近不动点，此时该本征方向为稳定的；当$\lambda>0$时，该本征方向的长期行为逐渐远离不动点，此时该本征方向为不稳定的。当两个方向上的长期行为都逐渐趋于不动点时，我们可以证明，不动点邻域的长期行为都趋于不动点，此时我们称该不动点为稳定的。除此之前，我们在非线性动力学中还根据本征值将不动点分为结点、焦点、鞍点和中心等等。
+
+对于非线性动力学系统，其方程的解析解不易求出，我们很难讨论其每个点的长期行为，但我们可以利用不动点邻域的线性化理论对不动点附近的动力学作定性的分析。考虑一个一般的二维非线性动力学系统
+\begin{equation}
+    \begin{aligned}
+        \dot{x}=f(x,y)\\
+        \dot{x}=g(x,y)
+    \end{aligned}
+\end{equation}
+设$(x^*,y^*)$为一个不动点，则
+\begin{equation}
+    \begin{aligned}
+        f(x^*,y^*)=0\\
+        g(x^*,y^*)=0
+    \end{aligned}
+\end{equation}
+设在不动点$(x^*,y^*)$附近处有一点$(x,y)$，令
+\begin{equation}
+    \begin{aligned}
+        x=x^*+u\\
+        y=y^*+v
+    \end{aligned}
+\end{equation}
+其中$u$和$v$表示不动点附近的扰动量，为了了解这一扰动量是增加还是减少，我们观察$u$和$v$的微分方程
+\begin{equation}
+    \begin{aligned}
+        \dot{u}&=\dot{x}\\
+               &=f(x^*+u,y^*+v)\\
+               &=f(x^*,y^*)+u\dfrac{\partial f}{\partial x}\Big|_{(x^*,y^*)}+v\dfrac{\partial f}{\partial y}\Big|_{(x^*,y^*)}+O(u^2,v^2,uv)\\
+               &=u\dfrac{\partial f}{\partial x}\Big|_{(x^*,y^*)}+v\dfrac{\partial f}{\partial y}\Big|_{(x^*,y^*)}+O(u^2,v^2,uv)
+    \end{aligned}
+\end{equation}
+同理我们可以得到
+\begin{equation}
+    \dot{u}=u\dfrac{\partial g}{\partial x}\Big|_{(x^*,y^*)}+v\dfrac{\partial g}{\partial y}\Big|_{(x^*,y^*)}+O(u^2,v^2,uv)
+\end{equation}
+即
+\begin{equation}  
+    \begin{pmatrix}
+        \dot{u}\\
+        \dot{v}
+    \end{pmatrix}=
+    \begin{pmatrix}
+        \dfrac{\partial f}{\partial x} & \dfrac{\partial f}{\partial y} \\
+        \dfrac{\partial g}{\partial x} & \dfrac{\partial g}{\partial y}
+    \end{pmatrix}_{(x^*,y^*)}
+    \begin{pmatrix}
+        u\\v
+    \end{pmatrix}+\text{二次项}
+\end{equation}
+我们称矩阵
+\begin{equation}
+    A=\begin{pmatrix}
+        \dfrac{\partial f}{\partial x} & \dfrac{\partial f}{\partial y} \\
+        \dfrac{\partial g}{\partial x} & \dfrac{\partial g}{\partial y}
+    \end{pmatrix}_{(x^*,y^*)}
+\end{equation}
+为在不动点$(x^*,y^*)$处的Jacobian矩阵。Andronov等（1973）证明了：如果Jacobian矩阵A的本征值与本征向量认为不动点是鞍点、结点或者焦点，那么对于原有的非线性系统方程来讲，该不动点也是一个鞍点、结点或者焦点（即边界情形：中心、退化结点、星形结点或非孤立不动点会随二次项的变化而变化）。于是我们可以将扰动量的动力学方程的二次项忽略掉，得到如下的系统方程：
+\begin{equation}
+    \begin{pmatrix}
+        \dot{u}\\
+        \dot{v}
+    \end{pmatrix}=
+    \begin{pmatrix}
+        \dfrac{\partial f}{\partial x} & \dfrac{\partial f}{\partial y} \\
+        \dfrac{\partial g}{\partial x} & \dfrac{\partial g}{\partial y}
+    \end{pmatrix}_{(x^*,y^*)}
+    \begin{pmatrix}
+        u\\v
+    \end{pmatrix}
+\end{equation}
+这样，对于非线性系统，我们也可以对不动点邻域的动力学特性进行分析，从而得到不动点附近演化的长期行为。
+
+对于离散映射系统，我们也可以得到类似的结论，但是Jacobian矩阵的判别关系要作相应的调整：当$|\lambda|<1$时，系统在不动点邻域的长期行为逐渐接近不动点；当$|\lambda|>1$时，统在不动点邻域的长期行为逐渐远离不动点。
+
+Koopman算符的本征函数能够划分相空间区域的不同性质，而不动点作为相空间一个重要的分界点，其邻域的线性化及其动力学行为会影响其周围相空间的动力学特性，在不动点周围的相空间区域性质也会随线性化的本征方向和本征值而有所改变。因此Koopman算符对相空间的划分会反映出不动点及其线性化的结果。我们也将在后面的例子中继续讨论这两者的对应关系。
+
+\subsection{周期轨道}
+
+我们将连续时间系统中满足$x(t+T)=x(t)$和离散映射系统中满足$x_{n+T}=x_n$的轨道称为\textbf{周期轨道}，且周期为$T$。关于求映射系统中的周期轨道有很多理论，如庞加莱截面（Poincar\'{e} plain）法、线段迭代交点法、牛顿拉夫申（Newton-Raphon）法、多点打靶（Multipoint Shooting）法，我们这里以牛顿拉夫申法和Multipoint Shooting方法为例，介绍求解映射系统周期轨道的方法。
+
+设有一存在周期解$(x,T)$的动力学系统满足
+\begin{equation}
+    f^{t+T}(x)=f^t(x)
+\end{equation}
+为了求解该动力学系统的周期轨道，我们通常的做法是从某个近似解出发，不断的修正这个解，直至满足某种精度为止。设动力学系统的周期解为$x^*$，定义函数
+\begin{equation}
+    F(x)=f^{t+T}(x)-f^{t}(x)
+\end{equation}
+其周期解满足$F(x^*)=0$，通过对函数$F(x)$在初始值$x_0$的线性化得
+\begin{equation}
+    F(x)\approx F(x_0)+F'(x_0)(x-x_0)
+\end{equation}
+则$F(x)=0$的近似解为
+\begin{equation}
+    x\approx x_0-\dfrac{F(x_0)}{F'(x_0)}
+\end{equation}
+然后将初始值$x_0$改变为$x_0+\delta$(其中$\delta=x-x_0$)继续运算，迭代并重复此过程。我们可以证明此迭代的过程是局部二阶收敛的，即不断趋于周期解。当我们得到的一系列收敛的$\delta$值满足所要求的精度$|\delta|\leqslant\epsilon$时，此时的近似解$x$即为系统的周期解$x^*$。
+
+由于迭代的过程是局部收敛的，当周期$n$的值比较大时，混沌系统的轨迹指数分离特性，其迭代值偏离周期点很大，会远离其收敛于而导致迭代发散，Multipoint Shooting方法在此基础上截取周期段，同时增加预测点，使偏离程度变小，从而使周期解的收敛速度得到改善。
+
+对于一个一维映射系统
+\begin{equation}
+    x_{n+1}=f(x_n)
+\end{equation}
+设其有周期解$n$，任意选取一个初始值$x_0$，迭代映射$n$次得到一系列迭代值$(x_1,x_2,\cdots,x_n)^0$，上标$0$表示该一系列值为初始值，我们将在后续计算中不断更新这一系列值。定义$n$维向量$F(x)$如下：
+\begin{equation}
+    F(x)=F
+    \begin{pmatrix}
+        x_1\\
+        x_2\\
+        \vdots \\
+        x_n
+    \end{pmatrix}=
+    \begin{pmatrix}
+        x_1-f(x_n)\\
+        x_2-f(x_1)\\
+        \vdots \\
+        x_n-f(x_{n-1})
+    \end{pmatrix}
+\end{equation}
+将$(x_1,x_2,\cdots,x_n)^0$作为该$n$维向量$F(x)$的初始值，迭代一次后该序列值将表示为$(x_1,x_2,\cdots,x_n)^1$，根据牛顿拉夫申法，我们可以得到
+\begin{equation}
+    \dfrac{d}{dx}F(x)(x^1-x)=-F(x)
+\end{equation}
+其中$\frac{d}{dx}F(x)$是一个$n$维矩阵
+\begin{equation}
+    \dfrac{d}{dx}F(x)=
+    \begin{pmatrix}
+        1        & 0      & \cdots & \cdots & -f'(x_n) \\
+        -f'(x_1) & 1      & \cdots & \cdots & \vdots   \\
+        \vdots   & \ddots & \ddots &        & \vdots   \\
+        \vdots   &        & \ddots &  1  &  0       \\
+        0        & \cdots &        & -f'(x_{n-1})&1
+    \end{pmatrix}
+\end{equation}
+于是我们可以得到
+\begin{equation}
+    \begin{pmatrix}
+        1        & 0      & \cdots & \cdots & -f'(x_n) \\
+        -f'(x_1) & 1      & \cdots & \cdots & \vdots   \\
+        \vdots   & \ddots & 1      &        & \vdots   \\
+        \vdots   &        & \ddots &  1  &  0       \\
+        0        & \cdots &        & -f'(x_{n-1})&1
+    \end{pmatrix}\cdot
+    \begin{pmatrix}
+        x_1^1-x_1\\
+        x_2^1-x_2\\
+        \vdots \\
+        x_n^1-x_n
+    \end{pmatrix}=-
+    \begin{pmatrix}
+        x_1-f(x_n)\\
+        x_2-f(x_1)\\
+        \vdots\\
+        x_n-f(x_{n-1})
+    \end{pmatrix}\label{equ:multi_shoot_iter}
+\end{equation}
+
+令$\delta=x_1^1$，求解\eqref{equ:multi_shoot_iter}式可以得到$\delta$的数值解，即由初始值$(x_1,x_2,\cdots,x_n)^0$迭代为$(x_1,x_2,\cdots,x_n)^1$，继续重复上述过程，可以得到一系列收敛的$\delta$，当$\delta$满足我们的精度要求$|\delta|\leqslant\epsilon$时，我们即得到系统的周期解$(x_1,x_2,\cdots,x_n)$。
+
+高维周期轨道的计算可以通过一维情况进行拓展，如在二维映射系统中
+\begin{equation}
+    \begin{aligned}
+        x_{n+1}=f(x_n,y_n)\\
+        y_{n+1}=g(x_n,y_n)
+    \end{aligned}
+\end{equation}
+我们可以将\eqref{equ:multi_shoot_iter}式改写为
+% $\mathbb{ABCDEFGHIGKLMNOPQRSTUVWXYZ}$
+% $\mathcal{ABCDEFGHIGKLMNOPQRSTUVWXYZ}$
+% $\mathscr{ABCDEFGHIGKLMNOPQRSTUVWXYZ}$
+% \newcommand{pd}[3]{-\dfrac{\partial #1(x_{#2},y_{#2})}{\partial #3}}
+% \newcommand{dx}[3]{#1_{#2}^{#3}-#1_{#2}}
+% \newcommand{xf}[2]{x_{#1}-f(x_{#2},y_{#2})\\y_{#1}-g(x_{#2},y_{#2})}
+\begin{equation}
+    \begin{aligned}
+        \begin{pmatrix}
+            1            & 0            & \cdots & \cdots & \cdots & -\dfrac{\partial f(x_{n},y_{n})}{\partial x} & -\dfrac{\partial f(x_{n},y_{n})}{\partial y} \\
+            0            & 1            & \cdots & \cdots & \cdots & -\dfrac{\partial g(x_{n},y_{n})}{\partial x} & -\dfrac{\partial g(x_{n},y_{n})}{\partial y} \\
+            -\dfrac{\partial f(x_{1},y_{1})}{\partial x} & -\dfrac{\partial f(x_{1},y_{1})}{\partial y} & 1      & 0      &        & \vdots       & \vdots       \\
+            -\dfrac{\partial g(x_{1},y_{1})}{\partial x} & -\dfrac{\partial g(x_{1},y_{1})}{\partial y} & 0      & 1      & \ddots & \vdots       & \vdots       \\
+            \vdots       & \vdots       &        & \ddots & \ddots & \vdots       & \vdots       \\
+            0            & 0            & \cdots & \cdots & \cdots & 1            & 0            \\
+            0            & 0            & \cdots & \cdots & \cdots & 0            & 1 
+        \end{pmatrix}\cdot
+        \begin{pmatrix}
+            x_{1}^{1}-x_{1}\\
+            y_{1}^{1}-y_{1}\\
+            x_{2}^{1}-x_{2}\\
+            y_{2}^{1}-y_{2}\\
+            \vdots\\
+            x_{n}^{1}-x_{n}\\
+            y_{n}^{1}-y_{n}
+        \end{pmatrix}\\ =-
+        \begin{pmatrix}
+            x_{1}-f(x_{n},y_{n})\\y_{1}-g(x_{n},y_{n})\\
+            x_{2}-f(x_{1},y_{1})\\y_{2}-g(x_{1},y_{1})\\
+            \vdots\\
+            x_{n}-f(x_{n-1},y_{n-1})\\y_{n}-g(x_{n-1},y_{n-1})
+        \end{pmatrix}
+    \end{aligned}
+\end{equation}
+
+在离散映射系统中，设有一周期为$T$的动力学系统$x_{n+T}=f^T(x_n)=x_n$，若定义一个新的映射$F=f^T$，则对于新的映射$F$，我们有$F(x_n)=x_n$,即$x_n$为新映射系统的不动点。Koopman算符对相空间区域不同性质的划分也应在$F$映射系统中有所体现，而新映射$F$与原映射$f$之间为$T$次映射，在相空间可表示为$T$次重复变换过程（包括拉伸、反转、折叠等），因此，我们对相空间区域的划分也会由于周期轨道的不同而有所体现。
 
 %% 本章参考文献
 % \ifx\usechapbib\empty

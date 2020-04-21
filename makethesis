@@ -198,6 +198,11 @@ if [ "$#" = 1 ]; then
         clean
     elif [ "$1" = "open" ]; then
         open ${TARGET}.pdf
+    elif [ "$1" = "reopen" ]; then
+        ps -ef | grep "/Applications/Adobe Acrobat Reader DC.app/Contents/MacOS/AdobeReader" | grep -v grep | awk '{print $2}' | xargs kill -9
+        open ${TARGET}.pdf
+    elif [ "$1" = "close" ]; then
+        ps -ef | grep "/Applications/Adobe Acrobat Reader DC.app/Contents/MacOS/AdobeReader" | grep -v grep | awk '{print $2}' | xargs kill -9
     elif [ "$1" = "openhtml" ]; then
         open ${WORDCOUNT}.html
     elif [ "$1" = "backup" ]; then
