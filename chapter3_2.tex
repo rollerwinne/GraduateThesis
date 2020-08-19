@@ -79,7 +79,7 @@ Logistic映射的分岔图$x_n-\gamma$描述了系统随$\gamma$表现出的不�
 在图\ref{fig:logi_eig_RGFL_multim}中，我们同样发现，当基函数数量增加时，本征函数图像的频率增加了，即描述本征函数的精细度增加了。且本征函数的变化有一定的规律：随着基函数数量的增加而使得描述本征函数的精细度的增加。在Logistic映射中，$x=\frac{1}{2}$将相空间$(0,1)$分为对称的两部分，而每部分中又有极值点将每个部分各自分为两部分，这与帐篷映射的性质较为相似，但是由于Logistic为非线性映射，其再次进行划分的边界则与帐篷映射有所区别。
 
 \subsubsection{自然基函数空间}
-在式\eqref{eq:Koop_kl12}中，我们通过构造自然基函数格点得到了Koopman算符的矩阵表示，选取合适的参数：演化格点$n=1000$，基函数数量$m=4$下,我们可以计算得到4个Koopman算符$U$的本征值与本征函数并将其画到相空间中，如图\ref{fig:Logistic_eigen_natural_n1000_m4}。我们可以发现在自然基函数空间下，本征函数的图像变得更为尖锐，但也更接近Logistic映射的相图。
+在式\eqref{eq:Koop_kl2}中，我们通过构造自然基函数格点得到了Koopman算符的矩阵表示，选取合适的参数：演化格点$n=1000$，基函数数量$m=4$下,我们可以计算得到4个Koopman算符$U$的本征值与本征函数并将其画到相空间中，如图\ref{fig:Logistic_eigen_natural_n1000_m4}。我们可以发现在自然基函数空间下，本征函数的图像变得更为尖锐，但也更接近Logistic映射的相图。
 \begin{figure}[!]
 	\centering
 	\includegraphics[scale=0.4]{logistic/Logistic_eigen_natural_n1000_m4}
@@ -289,6 +289,6 @@ Logistic映射存在两个不动点$x=\frac{1}{2}$和$x=\frac{3}{4}$，类似于
 \end{figure}
 在图\ref{fig:Logistic_auto_level_n1000_m4}中，我们计算了处于层次为15以内的边界点：我们可以发现，很多本征函数的极值点，我们都可以通过迭代关系确定其层次，并识别大部分极值点。我们可以通过Koopman算符确定动力学系统的边界点，且可以通过增加函数格点数量来精确的寻找重要的边界点，而其他层次的边界点也可以通过迭代关系来确定。
 
-\subsection{小结}
+%\subsection{小结}
 
 

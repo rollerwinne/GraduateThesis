@@ -87,7 +87,7 @@
 从另一个角度，$x=\frac{1}{2}$点似乎具有某种特殊性，其将相空间$(0,1)$分为对称的两部分，而每部分中又有极值点将每个部分各自分为两部分，形成类似分形的本征函数，我们将在后续的讨论中继续探究这些点与本征函数的关系。
 
 \subsubsection{自然基函数空间}
-在式\eqref{eq:Koop_kl12}中，我们通过构造自然基函数格点得到了Koopman算符的矩阵表示，选取合适的参数：演化格点$n=1000$，基函数数量$m=4$下,我们可以计算得到4个Koopman算符$U$的本征值与本征函数并将其画到相空间中，如图\ref{fig:Tent_eigen_natural_n1000_m4}。我们可以发现在自然基函数空间下，本征函数的图像变得更为尖锐，但也更接近帐篷映射的相图。且其同样存在一些$x=\frac{1}{2},\frac{1}{4},\frac{3}{4}$的关键点。
+在式\eqref{eq:Koop_kl2}中，我们通过构造自然基函数格点得到了Koopman算符的矩阵表示，选取合适的参数：演化格点$n=1000$，基函数数量$m=4$下,我们可以计算得到4个Koopman算符$U$的本征值与本征函数并将其画到相空间中，如图\ref{fig:Tent_eigen_natural_n1000_m4}。我们可以发现在自然基函数空间下，本征函数的图像变得更为尖锐，但也更接近帐篷映射的相图。且其同样存在一些$x=\frac{1}{2},\frac{1}{4},\frac{3}{4}$的关键点。
 \begin{figure}[!]
 	\centering
 	\includegraphics[scale=0.4]{tent/Tent_eigen_natural_n1000_m4}
@@ -120,8 +120,8 @@
   4 & 0,\textbf{\underline{0.125}},0.25,\textbf{\underline{0.375}},0.5,\textbf{\underline{0.625}},0.75,\textbf{\underline{0.875}},1 \\ \hline
   5 & \begin{tabular}[c]{@{}l@{}}0,\textbf{\underline{0.0625}},0.125,\textbf{\underline{0.1875}},0.25,\textbf{\underline{0.3125}},0.375,\textbf{\underline{0.4375}},\\
   0.5,\textbf{\underline{0.5625}},0.625,\textbf{\underline{0.6875}},0.75,\textbf{\underline{0.8125}},0.875,\textbf{\underline{0.9375}},1\end{tabular} \\ \hline
-  \end{tabular}\label{tab:tent_bound0}
-  \caption[帐篷映射的边界点($x=0$)]{帐篷映射的边界点($x=0$):经过多少次迭代可以到达不动点$x=0$，下划线的点是每层次的新增点}
+  \end{tabular}
+  \caption[帐篷映射的边界点($x=0$)]{帐篷映射的边界点($x=0$):经过多少次迭代可以到达不动点$x=0$，下划线的点是每层次的新增点}\label{tab:tent_bound0}
 \end{table}
 
 \begin{figure}[!]
@@ -411,4 +411,4 @@
 
 大小峰映射的三个边界点$x=\frac{1}{4},\frac{1}{2},\frac{3}{4}$的性质又有所不同：其每个边界点的性质都有所差异，我们也可以在本征函数图像中观察到这种差异带来的影响：本征函数关于$x=\frac{1}{2}$的对称性被破坏，且本征函数图像的趋势有所区别。如图\ref{fig:Tents5l_eigen_noise_n1000m20d0-001}(f)第三个小图中，虽然在$x=\frac{1}{4}$与$x=\frac{3}{4}$边界点处都存在本征函数的极值点，但极值点的大小和曲率都所有差异，我们可以通过这种差异来确定这两点性质的差异。
 
-\subsection{小结}
+%\subsection{小结}

@@ -47,10 +47,14 @@
 % \include{chapter6}
 % \include{chapter7}
 
-\ifx\usechapbib\undefined
+\nocite{*}
+%\ifx\usechapbib\undefined
+\chapter*{参考文献}
+\addcontentsline{toc}{chapter}{参考文献}
+\setcounter{NAT@ctr}{0}
 \bibliographystyle{buptgraduatethesis}
 \bibliography{references}
-\fi
+%\fi
 
 %% 附录部分
 

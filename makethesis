@@ -40,7 +40,7 @@ MAINMATTERS=(
 DRIVER="xetex"
 # Bib type to construct bibliography.
 # 'chapbib' for bib per chapter; 'allbib' for bib in thesis end.
-BIBTYPE="chapbib"
+BIBTYPE="allbib"
 #BIBTYPE="allbib"
 # Word count filename
 WORDCOUNT="wordcount"

@@ -1131,12 +1131,14 @@
 \ifbupt@class@chapbib\relax%
 \renewcommand{\bibsection}{%
   \bupt@bibsection%
-  \addcontentsline{toc}{section}{\bibname}\wuhao[1.2]%
+  %\addcontentsline{toc}{section}{\bibname}
+  \wuhao[1.2]%
   \setlength{\bibsep}{6bp plus 0.5ex minus 0.2ex}}
 \else
 \renewcommand{\bibsection}{%
   \bupt@bibsection%
-  \addcontentsline{toc}{chapter}{\bibname}\wuhao[1.2]}
+  %\addcontentsline{toc}{chapter}{\bibname}
+  \wuhao[1.2]}
 \fi
 \bibpunct{[}{]}{,}{s}{}{,}
 \renewcommand\NAT@citesuper[3]{%
