@@ -3,7 +3,7 @@
 %% Based on <https://github.com/rioxwang/BUPTGraduateThesis.git>
 %% 
 
-\documentclass[degree=master,classlevel=open,mathfont=mathptmx,dedication=false,chapbib=true,finish=print,driver=xetex]{buptgraduatethesis}
+\documentclass[degree=master,classlevel=open,mathfont=mathptmx,dedication=false,chapbib=false,finish=print,driver=xetex]{buptgraduatethesis}
 
 %% 自定义导言区
 %% 在这里添加你需要的宏包、自定义命令、环境等
@@ -44,17 +44,18 @@
 \include{chapter3}
 \include{chapter4}
 \include{chapter5}
-% \include{chapter6}
-% \include{chapter7}
+%\include{chapter6}
+%\include{chapter7}
 
 \nocite{*}
-%\ifx\usechapbib\undefined
-\chapter*{参考文献}
+\ifx\usechapbib\undefined
+%\section*{参考文献}
 \addcontentsline{toc}{chapter}{参考文献}
-\setcounter{NAT@ctr}{0}
+%\setcounter{NAT@ctr}{0}
+%\section*{参考文献}
 \bibliographystyle{buptgraduatethesis}
 \bibliography{references}
-%\fi
+\fi
 
 %% 附录部分
 
