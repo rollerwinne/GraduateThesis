@@ -7,9 +7,9 @@
 %\usepackage[timeinterval=1]{tdclock}%显示当前时间宏包
 %\input{tex/theme_control.tex}%在该文件控制主题样式
 %\usetheme{Warsaw}
-%\usetheme{Frankfurt}
+\usetheme{Frankfurt}
 %\usetheme{Copenhagen}
-\usetheme{CambridgeUS}
+%\usetheme{CambridgeUS}
 %\usetheme{Ilmenau}
 %\usetheme{AnnArbor}
 %\usetheme[secheader]{Boadilla}
@@ -399,7 +399,8 @@
     \end{figure}
     \end{frame}
 	\begin{frame}{一维映射-不同基函数数量之间的关系}
-		随着基函数数量$m$的增加，本征函数对边界点的描述也越来越精细。为了验证此结论，我们比较基函数数量加倍时本征函数极值点之间的关系，为了比较动力学特征的相似性，我们定义本征函数的相关系数
+		随着基函数数量$m$的增加，本征函数对边界点的描述也越来越精细。为了验证此结论，我们将比较基函数数量加倍时本征函数极值点之间的关系。\\
+		为了比较动力学特征的相似性，我们定义本征函数的相关系数
 		$$\rho(\phi_1,\phi_2)=\dfrac{\sum_i(\phi_{1i}-\overline{\phi}_1)(\phi_{2i}-\overline{\phi}_2)}{\sqrt{(\sum_i(\phi_{1i}-\overline{\phi}_1)^2)(\sum_i(\phi_{2i}-\overline{\phi}_2)^2)}}$$
 		为了确定不同基函数数量$m$下本征函数的一致性，我们使用下述参数极小值的计算：
 		$$\mathop{\arg\min}_{\boldsymbol{\phi_{m_2}}} \ \ || U\phi_{m_2}-\lambda \phi_{m_2} || + \mu |\rho(\phi_{m_1},\phi_{m_2})|$$
@@ -558,7 +559,7 @@
 		\end{tabular}
 	\end{frame}
 
-	\subsubsection{三维流：Lorenz System}
+	\subsubsection{其他混沌系统}
 		\begin{frame}{Lorenz System}
 		\begin{block}{动力学方程}
 			\centering
@@ -575,33 +576,53 @@
 、(-8.4853,8.4853,27)
 、(8.4853,-8,4853,27)
 		\begin{figure}
-			\begin{minipage}{0.4\linewidth}
+			\begin{minipage}{0.5\linewidth}
 				\centering
-				\includegraphics[width=1.6in]{figure/lorenz_phase}
-				\caption{Lorenz System相图}
+				\includegraphics[width=2in]{figure/lorenz_eigen_bin}
+				\caption{Lorenz系统的本征函数(二值化)}
 			\end{minipage}
 		\end{figure}
 		\end{frame}
-	
-		\begin{frame}{Lorenz System的本征函数}
-			\begin{figure}
-				\centering
-				\includegraphics[width=3.5in]{figure/lorenz_eigen}
-				\caption{Lorenz System的本征函数}
-			\end{figure}
-		\end{frame}
-		
-		\begin{frame}{Lorenz System的本征函数}
-			\begin{figure}
-				\centering
-				\includegraphics[width=3.5in]{figure/lorenz_eigen_bin}
-				\caption{Lorenz System的本征函数}
-			\end{figure}
-		\end{frame}
+	\begin{frame}{三维H\'{e}non映射}
+		\begin{block}{动力学方程}
+		\begin{equation*}
+		\begin{cases}
+		x_{n+1}=y_n\\
+		y_{n+1}=z_n\\
+		z_{n+1}=0.72x_n+Cy_n+Az_n-1.45z_n^2+0.515y_nz_n-y_n^2
+		\end{cases}
+		\end{equation*}
+	\end{block}
+	参数$A=-1.86,C=0.03,D=0$
+		\begin{figure}
+			\begin{minipage}{0.45\linewidth}
+				\centerline{\includegraphics[width=2.4in]{images/Henon3d_Koopman_n5000m2_figure1}}
+			\end{minipage}
+			\hfill
+			\begin{minipage}{0.45\linewidth}
+				\centerline{\includegraphics[width=2.4in]{images/Henon3d2_Koopman_n5000m2_figure1}}
+			\end{minipage}
+		\end{figure}
+	\end{frame}
+%		\begin{frame}{Lorenz System的本征函数}
+%			\begin{figure}
+%				\centering
+%				\includegraphics[width=3.5in]{figure/lorenz_eigen}
+%				\caption{Lorenz System的本征函数}
+%			\end{figure}
+%		\end{frame}
+%		
+%		\begin{frame}{Lorenz System的本征函数}
+%			\begin{figure}
+%				\centering
+%				\includegraphics[width=3.5in]{figure/lorenz_eigen_bin}
+%				\caption{Lorenz System的本征函数}
+%			\end{figure}
+%		\end{frame}
 
 
 \section{总结与展望}
-\begin{frame}{总结与展望}
+\begin{frame}{总结}
 	\begin{enumerate}
 		\small
 		\item Koopman算符描述了相空间中可观测函数的演化，可用于挖掘重要的动力学模式。
@@ -612,7 +633,14 @@
 		\item 具有普适性与鲁棒性。
 	\end{enumerate}
 \end{frame}
-
+\begin{frame}{改进空间及展望}
+	\begin{enumerate}
+		\item 通过调整基函数数量的大小来粗化或细化对相空间的划分
+		\item 相空间的划分是否随噪声强度变化以及如何随噪声强度变化
+		\item 次大的本征函数及其他的本征函数的意义与最大的本征函数有何区别
+		\item 高维系统中，并不容易确定最关键的维度特征，若能通过自动化的计算来确定最关键的维度特征，则系统程序的开发则更具有普适性
+	\end{enumerate}
+\end{frame}
 \begin{frame}{致谢}
 \centering
 \huge 感谢各位老师莅临指导\\[30pt]
